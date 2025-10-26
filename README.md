@@ -4,6 +4,9 @@
 > Dies ist nur ein kleines privates Projekt für TheMarvinJunior <br>
 > Ich werde keinen Support für Dritte leisten!
 
-## Features
 
+## 🧪 Features
 
+- Der Bot sendet einen Embed sobald ein Nutzer den Server betritt
+- Zu jedem Spieltag wird ein Embed mit Informationen gesendet
+- mehr kommt bald

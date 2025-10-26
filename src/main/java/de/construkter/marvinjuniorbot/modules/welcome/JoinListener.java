@@ -2,6 +2,7 @@ package de.construkter.marvinjuniorbot.modules.welcome;
 
 import de.construkter.marvinjuniorbot.Main;
 import de.construkter.marvinjuniorbot.config.Config;
+import de.construkter.marvinjuniorbot.logging.LogManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class JoinListener extends ListenerAdapter {
 
@@ -70,5 +73,10 @@ public class JoinListener extends ListenerAdapter {
             // Print a log to the console
             log.error("Could not add role to member: {}", e.getMessage());
         }
+
+        HashMap<String, String> args = new HashMap<>();
+        args.put("User", member.getAsMention());
+        args.put("Time", LocalDateTime.now().toString());
+        LogManager.log("User joined", "A new user joined the server", args, log);
     }
 }

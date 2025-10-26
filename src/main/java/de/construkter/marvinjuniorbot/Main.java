@@ -1,6 +1,7 @@
 package de.construkter.marvinjuniorbot;
 
 import de.construkter.marvinjuniorbot.config.Config;
+import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.modules.matches.GameSender;
 import de.construkter.marvinjuniorbot.modules.notifications.ButtonListener;
 import de.construkter.marvinjuniorbot.modules.notifications.SendPanel;
@@ -19,6 +20,8 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
 
 public class Main extends ListenerAdapter {
 
@@ -81,5 +84,6 @@ public class Main extends ListenerAdapter {
         // Print the invite link to the console when to bot is fully init
         LOGGER.info("Bot is ready!");
         LOGGER.info(event.getJDA().getInviteUrl(Permission.ADMINISTRATOR));
+        LogManager.log("ReadyEvent", "The Bot is now ready", new HashMap<>());
     }
 }

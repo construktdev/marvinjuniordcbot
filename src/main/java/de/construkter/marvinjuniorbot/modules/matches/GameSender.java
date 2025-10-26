@@ -3,23 +3,21 @@ package de.construkter.marvinjuniorbot.modules.matches;
 import com.fasterxml.jackson.databind.JsonNode;
 import de.construkter.marvinjuniorbot.Main;
 import de.construkter.marvinjuniorbot.config.Config;
+import de.construkter.marvinjuniorbot.logging.LogManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameSender {
@@ -28,6 +26,7 @@ public class GameSender {
     private static final Config config = Main.CONFIG;
 
     public static void run() {
+        LogManager.log("Gameday Checker", "Running daily Gameday check", new HashMap<>());
         HTTPHandler httpHandler = new HTTPHandler();
 
         List<JsonNode> games = new ArrayList<>();
@@ -49,7 +48,6 @@ public class GameSender {
                 sendEmbed(game, gameDateTime);
                 break;
             }
-
         }
     }
 

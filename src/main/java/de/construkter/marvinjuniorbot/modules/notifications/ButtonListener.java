@@ -2,6 +2,7 @@ package de.construkter.marvinjuniorbot.modules.notifications;
 
 import de.construkter.marvinjuniorbot.Main;
 import de.construkter.marvinjuniorbot.config.Config;
+import de.construkter.marvinjuniorbot.logging.LogManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

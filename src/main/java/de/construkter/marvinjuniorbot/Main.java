@@ -72,7 +72,6 @@ public class Main extends ListenerAdapter {
         } catch (Exception e) {
             LOGGER.error("Could not schedule Job!: {}", e.getMessage());
         }
-
         // Run the job once if specified in the arguments
         if (args.length >= 1 && args[0].equalsIgnoreCase("--test") && jda != null) {
             GameSender.run();

@@ -11,9 +11,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class HTTPHandler {
 
@@ -24,7 +21,6 @@ public class HTTPHandler {
         int year = 2025;
 
         String url = "https://api.openligadb.de/getmatchdata/" + liga + "/" + year + "/" + spieltag;
-        // System.out.println("URL: " + url);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -32,7 +28,7 @@ public class HTTPHandler {
                 .GET()
                 .build();
 
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
@@ -45,9 +41,9 @@ public class HTTPHandler {
         }
 
         String body = response.body();
-
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode;
+
         try {
             jsonNode = objectMapper.readTree(body);
         } catch (JsonProcessingException e) {
@@ -67,7 +63,6 @@ public class HTTPHandler {
                 // logger.error(e.getMessage());
             }
         }
-
         return null;
     }
 }

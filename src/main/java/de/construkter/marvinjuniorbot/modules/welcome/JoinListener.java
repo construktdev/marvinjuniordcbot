@@ -69,11 +69,9 @@ public class JoinListener extends ListenerAdapter {
                         .setFooter("TheMarvinJunior", guild.getIconUrl());
                 privateChannel.sendMessageEmbeds(builder.build()).queue();
             });
-
             // Print a log to the console
             log.error("Could not add role to member: {}", e.getMessage());
         }
-
         HashMap<String, String> args = new HashMap<>();
         args.put("User", member.getAsMention());
         args.put("Time", LocalDateTime.now().toString());

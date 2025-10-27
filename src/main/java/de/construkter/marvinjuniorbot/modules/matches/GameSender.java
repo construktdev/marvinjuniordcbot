@@ -28,7 +28,6 @@ public class GameSender {
     public static void run() {
         LogManager.log("Gameday Checker", "Running daily Gameday check", new HashMap<>());
         HTTPHandler httpHandler = new HTTPHandler();
-
         List<JsonNode> games = new ArrayList<>();
 
         for (int i = 1; i <= 38; i++) {
@@ -37,10 +36,9 @@ public class GameSender {
 
         for (JsonNode game : games) {
             if (game == null) return;
-            String dateStr = game.get("matchDateTime").asText(); // z.B. "2025-02-01T12:23:00"
+            String dateStr = game.get("matchDateTime").asText();
 
             LocalDateTime gameDateTime = LocalDateTime.parse(dateStr);
-
             LocalDate gameDate = gameDateTime.toLocalDate();
             LocalDate today = LocalDate.now();
 
@@ -54,7 +52,6 @@ public class GameSender {
     public static class DailyJob implements Job {
 
         private static final Logger logger = LoggerFactory.getLogger("GamedayHandler");
-
         @Override
         public void execute(JobExecutionContext jobExecutionContext) {
             logger.info("Running Daily Gameday Check...");
@@ -65,7 +62,6 @@ public class GameSender {
     private static void sendEmbed(JsonNode match, LocalDateTime date) {
         JDA jda = Main.jda;
         log.info("Sending Gameday Embed");
-
         TextChannel target = jda.getTextChannelById(config.get("gamedayChannel"));
 
         if (target == null) {

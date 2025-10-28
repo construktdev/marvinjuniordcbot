@@ -2,6 +2,7 @@ package de.construkter.marvinjuniorbot;
 
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
+import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.matches.GameSender;
 import de.construkter.marvinjuniorbot.modules.notifications.ButtonListener;
 import de.construkter.marvinjuniorbot.modules.notifications.SendPanel;
@@ -35,7 +36,7 @@ public class Main extends ListenerAdapter {
         builder.disableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI, CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS);
 
         // Add the event listeners so the bot can reply to events such as Member joins
-        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener());
+        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(), new PurgeCommand());
 
         // Build the JDA instance and launch the Bot
         jda = builder.build();
@@ -51,7 +52,9 @@ public class Main extends ListenerAdapter {
             LOGGER.info("Updating Commands for Guild: {}", guild.getName());
             guild.updateCommands().addCommands(
                     Commands.slash("notifications", "[ADMIN] Sendet ein Benachrichtigung's Panel")
-                            .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet werden soll")
+                            .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet werden soll"),
+                    Commands.slash("purge", "[Admin] Lösche eine bestimmte Anzahl an Nachrichten")
+                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages 2-100", true)
             ).queue();
         }
 

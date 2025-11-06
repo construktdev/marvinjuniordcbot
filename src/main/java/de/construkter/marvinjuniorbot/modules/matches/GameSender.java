@@ -88,7 +88,8 @@ public class GameSender {
         embedBuilder.setDescription("Dynamo Dresden hat heute ein " + gameType + "!\n\n" +
                 "**" + team1 + "** vs. **" + team2 + "**\n" +
                 "Gebt in diesem Channel gerne eure Spieltag-Tips ab.\n\n" +
-                "Spielbeginn: " + time + "Uhr");
+                "Spielbeginn: " + time + "Uhr\n\n" +
+                "Forza Dynamo \uD83D\uDDA4\uD83D\uDC9B");
         embedBuilder.setFooter("TheMarvinJunior", jda.getSelfUser().getAvatarUrl());
         embedBuilder.setThumbnail("https://cdn.construkter.de/SGD.png");
 

@@ -94,5 +94,8 @@ public class GameSender {
         embedBuilder.setThumbnail("https://cdn.construkter.de/SGD.png");
 
         target.sendMessageEmbeds(embedBuilder.build()).queue();
+        target.sendMessage("@everyone").queue( message -> {
+            message.delete().queue();
+        });
     }
 }

@@ -2,6 +2,7 @@ package de.construkter.marvinjuniorbot;
 
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
+import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.matches.GameSender;
 import de.construkter.marvinjuniorbot.modules.notifications.ButtonListener;
@@ -10,6 +11,7 @@ import de.construkter.marvinjuniorbot.modules.welcome.JoinListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -37,9 +39,14 @@ public class Main extends ListenerAdapter {
 
         // Add the event listeners so the bot can reply to events such as Member joins
         builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(), new PurgeCommand());
+        builder.setActivity(Activity.playing("EA FC SPORTS 26"));
 
         // Build the JDA instance and launch the Bot
         jda = builder.build();
+
+        // Start the Activity Shifter
+        // Changes the Bots Activity every 30 seconds
+        ActivityShift.start();
 
         try {
             jda.awaitReady();

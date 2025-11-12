@@ -17,7 +17,7 @@ public class ActivityShift {
             public void run() {
                 shift();
             }
-        }, 1000 * 30);
+        }, 1000 * 30, 1000 * 30);
     }
 
     private static void shift() {
@@ -26,7 +26,7 @@ public class ActivityShift {
 
         String[] activities = {"EA SPORTS FC 26", "FORZA SGD", "Ave Dynamo", "Verbandsstrafen abschaffen!", "Forza Dynamo", "Scheiß FCH", "Scheiß FCM", "Scheiß Schacht"};
 
-        int index = (int) Math.floor(Math.random() * activities.length) - 1;
+        int index = (int) (Math.random() * activities.length);
 
         jda.getPresence().setActivity(Activity.playing(activities[index]));
     }

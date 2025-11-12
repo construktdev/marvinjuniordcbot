@@ -30,6 +30,7 @@ public class Main extends ListenerAdapter {
 
     public static final Config CONFIG = new Config("config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    public static final String VERSION = "1.1.6";
     public static JDA jda;
 
     public static void main(String[] args) {
@@ -93,6 +94,8 @@ public class Main extends ListenerAdapter {
         // Print the invite link to the console when to bot is fully init
         LOGGER.info("Bot is ready!");
         LOGGER.info(event.getJDA().getInviteUrl(Permission.ADMINISTRATOR));
-        LogManager.log("ReadyEvent", "The Bot is now ready", new HashMap<>());
+        HashMap<String, String> infos = new HashMap<>();
+        infos.put("Version", VERSION);
+        LogManager.log("ReadyEvent", "The Bot is now ready", infos);
     }
 }

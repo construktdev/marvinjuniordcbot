@@ -59,9 +59,7 @@ public class HTTPHandler {
                 if ("Dynamo Dresden".equals(team1) || "Dynamo Dresden".equals(team2)) {
                     return match;
                 }
-            } catch (NullPointerException e) {
-                // logger.error(e.getMessage());
-            }
+            } catch (NullPointerException ignored) {}
         }
         return null;
     }

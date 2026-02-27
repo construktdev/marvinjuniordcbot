@@ -31,7 +31,7 @@ public class GameSender {
         List<JsonNode> games = new ArrayList<>();
 
         for (int i = 1; i <= 38; i++) {
-            games.add(httpHandler.getGames(i));
+            games.add(httpHandler.getGame(i));
         }
 
         for (JsonNode game : games) {
@@ -43,8 +43,12 @@ public class GameSender {
             LocalDate today = LocalDate.now();
 
             if (gameDate.equals(today)) {
+                Main.todayWasGame = true;
                 sendEmbed(game, gameDateTime);
-                break;
+                return;
+            } else if (Main.todayWasGame) {
+                Main.todayWasGame = false;
+                sendResultEmbed(httpHandler.getGame(Main.currentSpieltag));
             }
         }
     }
@@ -63,6 +67,8 @@ public class GameSender {
         JDA jda = Main.jda;
         log.info("Sending Gameday Embed");
         TextChannel target = jda.getTextChannelById(config.get("gamedayChannel"));
+
+        Main.currentSpieltag = match.get("group").get("groupOrderID").asInt();
 
         if (target == null) {
             log.warn("Could not find channel for sending Gameday Embed");
@@ -97,5 +103,40 @@ public class GameSender {
         target.sendMessage("@everyone").queue( message -> {
             message.delete().queue();
         });
+    }
+
+    public static void sendResultEmbed(JsonNode match) {
+        JDA jda = Main.jda;
+        log.info("Sending Result Embed");
+        TextChannel target = jda.getTextChannelById(config.get("gamedayChannel"));
+
+        if (target == null) {
+            log.warn("Could not find channel for sending Result Embed");
+            return;
+        }
+
+        String team1 = match.get("team1").get("teamName").asText();
+        String team2 = match.get("team2").get("teamName").asText();
+
+        int points1 = 0;
+        int points2 = 0;
+
+        for (JsonNode result : match.get("matchResults")) {
+            if (result.get("resultName").asText().equals("Endergebnis")) {
+                points1 = result.get("pointsTeam1").asInt();
+                points2 = result.get("pointsTeam2").asInt();
+            }
+        }
+
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setTitle("\uD83D\uDDA4\uD83D\uDC9B Spieltag (Endergebnis) ⚽");
+        embedBuilder.setColor(Color.YELLOW);
+        embedBuilder.setDescription("Ergebnis des vergangenen Spiels\n" +
+                "**" + team1 + " - " + points1 + ":" + points2 + " - " + team2 +
+                "-# Die Daten kommen von einer öffentlichen API - keine Gewähr auf Richtig- oder Vollständigheit");
+        embedBuilder.setFooter("TheMarvinJunior", jda.getSelfUser().getAvatarUrl());
+        embedBuilder.setThumbnail("https://cdn.construkter.de/SGD.png");
+
+        target.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 }

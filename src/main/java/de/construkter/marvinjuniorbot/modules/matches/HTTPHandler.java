@@ -16,7 +16,7 @@ public class HTTPHandler {
 
     Logger logger = LoggerFactory.getLogger(HTTPHandler.class);
 
-    public JsonNode getGames(int spieltag) {
+    public JsonNode getGame(int spieltag) {
         String liga = "bl2";
         int year = 2025;
 

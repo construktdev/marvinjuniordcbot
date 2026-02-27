@@ -1,5 +1,6 @@
 package de.construkter.marvinjuniorbot;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
@@ -31,6 +32,8 @@ public class Main extends ListenerAdapter {
     public static final Config CONFIG = new Config("config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     public static final String VERSION = "1.1.6";
+    public static boolean todayWasGame = false;
+    public static int currentSpieltag = 0;
     public static JDA jda;
 
     public static void main(String[] args) {

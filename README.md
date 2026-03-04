@@ -9,7 +9,9 @@
 
 - Der Bot sendet einen Embed sobald ein Nutzer den Server betritt
 - Zu jedem Spieltag wird ein Embed mit Informationen gesendet
-- Stream Benachrichtigungschanger
+  - Nach einem Spieltag wird das Ergebnis hereingesendet
+- Stream Benachrichtigungen
+  - Mit einfacher Änderung für Benutzer
 - mehr kommt bald
 
 ## ACHTUNG

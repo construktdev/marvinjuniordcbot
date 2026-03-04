@@ -26,9 +26,9 @@ public class GameSender {
     private static final Config config = Main.CONFIG;
 
     public static void run() {
-        LogManager.log("Gameday Checker", "Running daily Gameday check", new HashMap<>());
         HTTPHandler httpHandler = new HTTPHandler();
         List<JsonNode> games = new ArrayList<>();
+        HashMap<String, String> args = new HashMap<>();
 
         for (int i = 1; i <= 38; i++) {
             games.add(httpHandler.getGame(i));
@@ -45,12 +45,18 @@ public class GameSender {
             if (gameDate.equals(today)) {
                 Main.todayWasGame = true;
                 sendEmbed(game, gameDateTime);
+                args.put("gameToday", "true");
                 return;
             } else if (Main.todayWasGame) {
                 Main.todayWasGame = false;
                 sendResultEmbed(httpHandler.getGame(Main.currentSpieltag));
+                args.put("resultToday", "true");
+            } else {
+                args.put("gameToday", "true");
             }
         }
+
+        LogManager.log("Gameday Checker", "Running daily Gameday check", args);
     }
 
     public static class DailyJob implements Job {

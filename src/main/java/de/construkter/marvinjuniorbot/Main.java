@@ -1,6 +1,5 @@
 package de.construkter.marvinjuniorbot;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
@@ -65,7 +64,7 @@ public class Main extends ListenerAdapter {
                     Commands.slash("notifications", "[ADMIN] Sendet ein Benachrichtigung's Panel")
                             .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet werden soll"),
                     Commands.slash("purge", "[Admin] Lösche eine bestimmte Anzahl an Nachrichten")
-                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages 2-100", true)
+                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)", true)
             ).queue();
         }
 
@@ -78,7 +77,7 @@ public class Main extends ListenerAdapter {
                 .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 1))
                 .build();
 
-        Scheduler scheduler = null;
+        Scheduler scheduler;
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();

@@ -64,7 +64,9 @@ public class Main extends ListenerAdapter {
                     Commands.slash("notifications", "[ADMIN] Sendet ein Benachrichtigung's Panel")
                             .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet werden soll"),
                     Commands.slash("purge", "[Admin] Lösche eine bestimmte Anzahl an Nachrichten")
-                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)", true)
+                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)", true),
+                    Commands.slash("whois", "[UTIL] Bekomme Informationen über einen Nutzer")
+                            .addOption(OptionType.USER, "user", "Der Nutzer mit den Informationen")
             ).queue();
         }
 

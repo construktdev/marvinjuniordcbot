@@ -4,6 +4,7 @@ import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
+import de.construkter.marvinjuniorbot.modules.commands.WhoIsCommand;
 import de.construkter.marvinjuniorbot.modules.matches.GameSender;
 import de.construkter.marvinjuniorbot.modules.news.NewsSender;
 import de.construkter.marvinjuniorbot.modules.notifications.ButtonListener;
@@ -42,7 +43,7 @@ public class Main extends ListenerAdapter {
         builder.disableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI, CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS);
 
         // Add the event listeners so the bot can reply to events such as Member joins
-        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(), new PurgeCommand());
+        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(), new PurgeCommand(), new WhoIsCommand());
         builder.setActivity(Activity.playing("EA FC SPORTS 26"));
 
         // Build the JDA instance and launch the Bot

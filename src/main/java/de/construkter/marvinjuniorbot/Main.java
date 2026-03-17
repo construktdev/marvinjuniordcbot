@@ -5,6 +5,7 @@ import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.matches.GameSender;
+import de.construkter.marvinjuniorbot.modules.news.NewsSender;
 import de.construkter.marvinjuniorbot.modules.notifications.ButtonListener;
 import de.construkter.marvinjuniorbot.modules.notifications.SendPanel;
 import de.construkter.marvinjuniorbot.modules.welcome.JoinListener;
@@ -74,19 +75,32 @@ public class Main extends ListenerAdapter {
 
         // Start the daily Gameday check
         JobDetail job = JobBuilder.newJob(GameSender.DailyJob.class).build();
+        JobDetail gameIntervalJob = JobBuilder.newJob(GameIntervalJob.class).build();
+        JobDetail newsJob = JobBuilder.newJob(NewsSender.HourlyJob.class).build();
 
-        Trigger trigger = TriggerBuilder.newTrigger()
+        Trigger dailyTrigger = TriggerBuilder.newTrigger()
                 .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 1))
+                .build();
+
+        Trigger hourlyNewsTrigger = TriggerBuilder.newTrigger()
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 * * * ?"))
+                .build();
+
+        Trigger gameIntervalTrigger = TriggerBuilder.newTrigger()
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */10 * * * ?"))
                 .build();
 
         Scheduler scheduler;
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
-            scheduler.scheduleJob(job, trigger);
+            scheduler.scheduleJob(job, dailyTrigger);
+            scheduler.scheduleJob(gameIntervalJob, gameIntervalTrigger);
+            scheduler.scheduleJob(newsJob, hourlyNewsTrigger);
         } catch (Exception e) {
             LOGGER.error("Could not schedule Job!: {}", e.getMessage());
         }
+
         // Run the job once if specified in the arguments
         if (args.length >= 1 && args[0].equalsIgnoreCase("--test") && jda != null) {
             GameSender.run();
@@ -101,5 +115,14 @@ public class Main extends ListenerAdapter {
         HashMap<String, String> infos = new HashMap<>();
         infos.put("Version", VERSION);
         LogManager.log("ReadyEvent", "The Bot is now ready", infos);
+    }
+
+    public static class GameIntervalJob implements Job {
+        @Override
+        public void execute(JobExecutionContext context) {
+            if (todayWasGame) {
+                NewsSender.run();
+            }
+        }
     }
 }

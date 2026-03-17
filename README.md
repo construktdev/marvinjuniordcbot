@@ -12,6 +12,7 @@
   - Nach einem Spieltag wird das Ergebnis hereingesendet
 - Stream Benachrichtigungen
   - Mit einfacher Änderung für Benutzer
+- Automatisches senden von [kicker](https://kicker.de) Dynamo Dresden Team News (Experimental)
 - mehr kommt bald
 
 ## ACHTUNG

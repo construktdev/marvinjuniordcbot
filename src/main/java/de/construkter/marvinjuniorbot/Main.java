@@ -39,11 +39,13 @@ public class Main extends ListenerAdapter {
 
     public static void main(String[] args) {
         // Create a JDA Builder
-        JDABuilder builder = JDABuilder.createDefault(Token.get(), GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS);
+        JDABuilder builder = JDABuilder.createDefault(Token.get(), GatewayIntent.MESSAGE_CONTENT,
+                GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS);
         builder.disableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI, CacheFlag.STICKER, CacheFlag.SCHEDULED_EVENTS);
 
         // Add the event listeners so the bot can reply to events such as Member joins
-        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(), new PurgeCommand(), new WhoIsCommand());
+        builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(),
+                new PurgeCommand(), new WhoIsCommand());
         builder.setActivity(Activity.playing("EA FC SPORTS 26"));
 
         // Build the JDA instance and launch the Bot
@@ -64,9 +66,11 @@ public class Main extends ListenerAdapter {
             LOGGER.info("Updating Commands for Guild: {}", guild.getName());
             guild.updateCommands().addCommands(
                     Commands.slash("notifications", "[ADMIN] Sendet ein Benachrichtigung's Panel")
-                            .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet werden soll"),
+                            .addOption(OptionType.CHANNEL, "channel", "Der Kanal wo es gesendet "
+                                    + "werden soll"),
                     Commands.slash("purge", "[Admin] Lösche eine bestimmte Anzahl an Nachrichten")
-                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)", true),
+                            .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)",
+                                    true),
                     Commands.slash("whois", "[UTIL] Bekomme Informationen über einen Nutzer")
                             .addOption(OptionType.USER, "user", "Der Nutzer mit den Informationen")
             ).queue();
@@ -109,7 +113,7 @@ public class Main extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(ReadyEvent event) {
+    public void onReady(final ReadyEvent event) {
         // Print the invite link to the console when to bot is fully init
         LOGGER.info("Bot is ready!");
         LOGGER.info(event.getJDA().getInviteUrl(Permission.ADMINISTRATOR));
@@ -120,7 +124,7 @@ public class Main extends ListenerAdapter {
 
     public static class GameIntervalJob implements Job {
         @Override
-        public void execute(JobExecutionContext context) {
+        public void execute(final JobExecutionContext context) {
             if (todayWasGame) {
                 NewsSender.run();
             }

@@ -12,7 +12,7 @@ import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -63,13 +63,13 @@ public class GameSender {
 
         private static final Logger logger = LoggerFactory.getLogger("GamedayHandler");
         @Override
-        public void execute(JobExecutionContext jobExecutionContext) {
+        public void execute(final JobExecutionContext jobExecutionContext) {
             logger.info("Running Daily Gameday Check...");
             run();
         }
     }
 
-    private static void sendEmbed(JsonNode match, LocalDateTime date) {
+    private static void sendEmbed(final JsonNode match, final LocalDateTime date) {
         JDA jda = Main.jda;
         log.info("Sending Gameday Embed");
         TextChannel target = jda.getTextChannelById(config.get("gamedayChannel"));
@@ -106,12 +106,10 @@ public class GameSender {
         embedBuilder.setThumbnail("https://cdn.construkter.de/SGD.png");
 
         target.sendMessageEmbeds(embedBuilder.build()).queue();
-        target.sendMessage("@everyone").queue( message -> {
-            message.delete().queue();
-        });
+        target.sendMessage("@everyone").queue( message -> message.delete().queue());
     }
 
-    public static void sendResultEmbed(JsonNode match) {
+    public static void sendResultEmbed(final JsonNode match) {
         JDA jda = Main.jda;
         log.info("Sending Result Embed");
         TextChannel target = jda.getTextChannelById(config.get("gamedayChannel"));

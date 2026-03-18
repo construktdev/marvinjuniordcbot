@@ -11,7 +11,7 @@ public class Config {
 
     private final Properties properties = new Properties();
 
-    public Config(String path) {
+    public Config(final String path) {
         try (FileInputStream fis = new FileInputStream(path)) {
             properties.load(fis);
         } catch (IOException e) {
@@ -20,7 +20,7 @@ public class Config {
         }
     }
 
-    public String get(String key) {
+    public String get(final String key) {
         return properties.getProperty(key);
     }
 }

@@ -1,7 +1,6 @@
 package de.construkter.marvinjuniorbot.modules.news;
 
 import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import org.jetbrains.annotations.Nullable;

@@ -8,8 +8,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class PurgeCommand extends ListenerAdapter {
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (!event.getName().equals("purge")) return;
+    public void onSlashCommandInteraction(final SlashCommandInteractionEvent event) {
+        if (!event.getName().equals("purge")) {
+            return;
+        }
         if (event.getGuild() == null || event.getMember() == null) {
             return;
         }
@@ -34,11 +36,10 @@ public class PurgeCommand extends ListenerAdapter {
 
         TextChannel channel = event.getChannel().asTextChannel();
 
-        channel.getHistory().retrievePast(messages).queue(history -> {
-            channel.deleteMessages(history).queue(
-                    success -> event.reply("✅ Nachrichten erfolgreich gelöscht").setEphemeral(true).queue(),
-                    error -> event.reply(error.getMessage()).setEphemeral(false).queue()
-            );
-        });
+        channel.getHistory().retrievePast(messages).queue(history -> channel.deleteMessages(history).queue(
+                success -> event.reply("✅ Nachrichten erfolgreich gelöscht")
+                        .setEphemeral(true).queue(),
+                error -> event.reply(error.getMessage()).setEphemeral(false).queue()
+        ));
     }
 }

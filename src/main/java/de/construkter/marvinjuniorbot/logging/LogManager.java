@@ -8,11 +8,12 @@ import org.slf4j.Logger;
 import java.util.HashMap;
 
 public class LogManager {
-    public static void log(String title, String message, HashMap<String, String> arguments) {
+    public static void log(final String title, final String message,
+                           final HashMap<String, String> arguments) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(title);
-        embedBuilder.setDescription(message + "\n\n" +
-                "**Additional Information:**");
+        embedBuilder.setDescription(message + "\n\n"
+                + "**Additional Information:**");
 
         for (String key : arguments.keySet()) {
             String value = arguments.get(key);
@@ -28,12 +29,13 @@ public class LogManager {
         }
     }
 
-    public static void log(String title, String message, HashMap<String, String> arguments, Logger logger) {
+    public static void log(final String title, final String message,
+                           final HashMap<String, String> arguments, final Logger logger) {
         StringBuilder logMessage = new StringBuilder();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(title);
-        embedBuilder.setDescription(message + "\n\n" +
-                "**Additional Information:**");
+        embedBuilder.setDescription(message + "\n\n"
+                + "**Additional Information:**");
 
         logMessage.append(message);
 

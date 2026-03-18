@@ -2,7 +2,6 @@ package de.construkter.marvinjuniorbot.modules.news;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import de.construkter.marvinjuniorbot.Main;
-import de.construkter.marvinjuniorbot.modules.matches.GameSender;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.quartz.Job;
@@ -32,7 +31,7 @@ public class NewsSender {
 
         private static final Logger logger = LoggerFactory.getLogger("NewsHandler");
         @Override
-        public void execute(JobExecutionContext jobExecutionContext) {
+        public void execute(final JobExecutionContext jobExecutionContext) {
             logger.info("Running Hourly News Check...");
             if (Main.todayWasGame) return;
             run();
@@ -55,12 +54,13 @@ public class NewsSender {
         }
     }
 
-    public static void sendEmbed(SyndEntry feed) {
+    public static void sendEmbed(final SyndEntry feed) {
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle(feed.getTitle());
         embed.setDescription(feed.getDescription().getValue());
         embed.setThumbnail("https://cdn.construkter.de/sgd.png");
-        embed.addField("Voller Artikel (kicker.de)", "[Klicke hier](" + feed.getLink() +  ")", false);
+        embed.addField("Voller Artikel (kicker.de)", "[Klicke hier](" + feed.getLink() +  ")",
+                false);
         embed.setTimestamp(feed.getPublishedDate().toInstant());
         embed.setFooter("Kicker News Feed. Veröffentlicht:");
 

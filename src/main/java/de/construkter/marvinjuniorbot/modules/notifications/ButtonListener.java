@@ -2,26 +2,23 @@ package de.construkter.marvinjuniorbot.modules.notifications;
 
 import de.construkter.marvinjuniorbot.Main;
 import de.construkter.marvinjuniorbot.config.Config;
-import de.construkter.marvinjuniorbot.logging.LogManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
 public class ButtonListener extends ListenerAdapter {
 
-    Logger logger = LoggerFactory.getLogger("Notifications.ButtonListener");
-    Config config = Main.CONFIG;
+    private final Config config = Main.CONFIG;
 
     @Override
-    public void onButtonInteraction(ButtonInteractionEvent event) {
-        if (!event.getComponentId().equalsIgnoreCase("notifications")) return; // Only reply to the notifications change button
+    public void onButtonInteraction(final ButtonInteractionEvent event) {
+        if (!event.getComponentId().equalsIgnoreCase("notifications")) return;
+        // Only reply to the notifications change button
 
         Member member = event.getMember();
         Role streamRole = event.getJDA().getRoleById(config.get("streamRole"));

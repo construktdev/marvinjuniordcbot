@@ -5,13 +5,13 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.awt.*;
+import java.awt.Color;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 
 public class WhoIsCommand extends ListenerAdapter {
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+    public void onSlashCommandInteraction(final SlashCommandInteractionEvent event) {
         var target = event.getOption("user");
 
         if (target == null) {
@@ -29,7 +29,9 @@ public class WhoIsCommand extends ListenerAdapter {
         builder.addField("Effective Name", user.getEffectiveName(), false);
         builder.addField("Mention", user.getAsTag(), false);
         builder.addField("User ID", user.getId(), false);
-        builder.addField("Erstellt", user.getTimeCreated().format(DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm")), false);
+        builder.addField("Erstellt", user.getTimeCreated().format(
+                DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm")), false
+        );
         builder.addField("Ist Bot", String.valueOf(user.isBot()), false);
         builder.addField("User Flags", user.getFlags().toString(), false);
         builder.setTimestamp(Instant.now());

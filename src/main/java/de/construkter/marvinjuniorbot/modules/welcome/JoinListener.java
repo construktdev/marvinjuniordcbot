@@ -13,18 +13,18 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
+import java.awt.Color;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class JoinListener extends ListenerAdapter {
 
-    Config config = Main.CONFIG;
-    Logger log = LoggerFactory.getLogger(getClass());
+    private final Config config = Main.CONFIG;
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+    public void onGuildMemberJoin(final GuildMemberJoinEvent event) {
         /*
         * Send the JoinMessage
         */
@@ -34,7 +34,14 @@ public class JoinListener extends ListenerAdapter {
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle("\uD83D\uDC4B Herzlich Willkommen");
-        embed.setDescription(String.format("Hallo %s, \nschön, dass du hierher gefunden hast.\n\nBitte lese dir die <#1431530962990137355> durch und sage gerne im <#1431539789693456384> Hallo!\nAnsonsten wünschen wir dir hier viel Spaß. Forza SGD \uD83D\uDDA4\uD83D\uDC9B", event.getMember().getAsMention()));
+        embed.setDescription(String.format("""
+                Hallo %s,\s
+                schön, dass du hierher gefunden hast.
+                
+                Bitte lese dir die <#1431530962990137355> \
+                durch und sage gerne im <#1431539789693456384> Hallo!
+                Ansonsten wünschen wir dir hier viel Spaß. \
+                Forza SGD \uD83D\uDDA4\uD83D\uDC9B""", event.getMember().getAsMention()));
         embed.setThumbnail(event.getMember().getUser().getAvatarUrl());
         embed.setFooter("TheMarvinJunior", guild.getIconUrl());
         embed.setTimestamp(Instant.now());
@@ -65,7 +72,8 @@ public class JoinListener extends ListenerAdapter {
                 EmbedBuilder builder = new EmbedBuilder()
                         .setTitle("❌ Fehler")
                         .setColor(Color.RED)
-                        .setDescription("Ich konnte dir leider keine Mitglied Rolle geben. Bitte kontaktiere entweder Marvin oder [C0n.strukt](https://support.construkter.de)")
+                        .setDescription("Ich konnte dir leider keine Mitglied Rolle geben. "
+                                + "Bitte kontaktiere entweder Marvin oder [C0n.strukt](https://support.construkter.de)")
                         .setFooter("TheMarvinJunior", guild.getIconUrl());
                 privateChannel.sendMessageEmbeds(builder.build()).queue();
             });

@@ -17,9 +17,15 @@ import java.util.HashMap;
 public class SendPanel extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(final SlashCommandInteractionEvent event) {
-        if (!event.getName().equals("notifications")) return; // Only reply to /notifications
-        if (event.getGuild() ==  null) return; // Only reply if it's run in a guild
-        if (event.getMember() ==  null) return; // Only reply if it's run by a real member
+        if (!event.getName().equals("notifications")) {
+            return;
+        } // Only reply to /notifications
+        if (event.getGuild() ==  null) {
+            return;
+        } // Only reply if it's run in a guild
+        if (event.getMember() ==  null) {
+            return;
+        } // Only reply if it's run by a real member
 
         if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
             event.reply("Du musst mindestens Admin sein um diesen Befehl zu nutzen").setEphemeral(true).queue();

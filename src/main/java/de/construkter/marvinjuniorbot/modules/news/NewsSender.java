@@ -19,11 +19,14 @@ public class NewsSender {
 
     public static void run() {
         SyndEntry newest = RssHandler.getNewestFeed();
-        if (newest == null) return;
-
+        if (newest == null) {
+            return;
+        }
         String title = newest.getTitle();
 
-        if (title.equals(getLastTitle())) return;
+        if (title.equals(getLastTitle())) {
+            return;
+        }
         sendEmbed(newest);
     }
 
@@ -33,7 +36,9 @@ public class NewsSender {
         @Override
         public void execute(final JobExecutionContext jobExecutionContext) {
             logger.info("Running Hourly News Check...");
-            if (Main.todayWasGame) return;
+            if (Main.todayWasGame) {
+                return;
+            }
             run();
         }
     }

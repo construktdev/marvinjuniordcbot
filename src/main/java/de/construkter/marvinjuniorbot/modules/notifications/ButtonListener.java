@@ -17,7 +17,9 @@ public class ButtonListener extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(final ButtonInteractionEvent event) {
-        if (!event.getComponentId().equalsIgnoreCase("notifications")) return;
+        if (!event.getComponentId().equalsIgnoreCase("notifications")) {
+            return;
+        }
         // Only reply to the notifications change button
 
         Member member = event.getMember();
@@ -29,9 +31,13 @@ public class ButtonListener extends ListenerAdapter {
             return;
         }
 
-        if (member == null) return;
+        if (member == null) {
+            return;
+        }
 
-        if (guild == null) return; // Don't need feedback cuz the button can only be in a guild (SendPanel.java)
+        if (guild == null) {
+            return;
+        } // Don't need feedback cuz the button can only be in a guild (SendPanel.java)
 
         if (member.getRoles().contains(streamRole)) {
             guild.removeRoleFromMember(member, streamRole).queue();

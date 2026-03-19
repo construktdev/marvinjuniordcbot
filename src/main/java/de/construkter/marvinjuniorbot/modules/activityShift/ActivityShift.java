@@ -25,8 +25,15 @@ public class ActivityShift {
             return;
         }
 
-        String[] activities = {"EA SPORTS FC 26", "FORZA SGD", "Ave Dynamo", "Verbandsstrafen abschaffen!",
-                "Forza Dynamo", "Scheiß FCH", "Scheiß FCM", "Scheiß Schacht"};
+        String[] activities = {
+            "EA SPORTS FC 26",
+            "FORZA SGD", "Ave Dynamo",
+            "Verbandsstrafen abschaffen!",
+            "Forza Dynamo",
+            "Scheiß FCH",
+            "Scheiß FCM",
+            "Scheiß Schacht"
+        };
 
         int index = (int) (Math.random() * activities.length);
 

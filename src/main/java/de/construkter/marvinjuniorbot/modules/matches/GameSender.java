@@ -35,7 +35,9 @@ public class GameSender {
         }
 
         for (JsonNode game : games) {
-            if (game == null) return;
+            if (game == null) {
+                return;
+            }
             String dateStr = game.get("matchDateTime").asText();
 
             LocalDateTime gameDateTime = LocalDateTime.parse(dateStr);
@@ -69,6 +71,7 @@ public class GameSender {
         }
     }
 
+    @SuppressWarnings("checkstyle:Indentation")
     private static void sendEmbed(final JsonNode match, final LocalDateTime date) {
         JDA jda = Main.jda;
         log.info("Sending Gameday Embed");

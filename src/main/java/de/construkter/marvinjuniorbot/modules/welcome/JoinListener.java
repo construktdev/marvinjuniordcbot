@@ -30,7 +30,10 @@ public class JoinListener extends ListenerAdapter {
         */
         Guild guild = event.getGuild();
         TextChannel channel = guild.getTextChannelById(config.get("welcomeChannel"));
-        if (channel == null) { log.warn("No text channel found"); return; }
+        if (channel == null) {
+            log.warn("No text channel found");
+            return;
+        }
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle("\uD83D\uDC4B Herzlich Willkommen");

@@ -1,7 +1,7 @@
 # TheMarvinJuniorBot
 
 > [!CAUTION]
-> Der MarvinKunior wurde am 08.04.2026 geschlossen!
+> Der MarvinJunior Discord wurde am 08.04.2026 geschlossen!
 > Somit wird auch diese Repo jetzt inaktiv
 
 

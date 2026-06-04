@@ -1,7 +1,7 @@
 # TheMarvinJuniorBot
 
 > [!NOTE]
-> Der MarvinJunior Discord wurde vorerst am 08.04.2026 geschlossen!
+> Der MarvinJunior Discord wurde vorerst am 08.04.2026 geschlossen! <br>
 > Am 04.06.2026 hat er auf Instgram sein Comeback verkündigt
 > Somit wird diese Repo wieder langsam aktiv werden!
 

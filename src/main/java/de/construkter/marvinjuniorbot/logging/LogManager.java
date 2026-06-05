@@ -11,6 +11,10 @@ public class LogManager {
     public static void log(final String title, final String message,
                            final HashMap<String, String> arguments) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(message).append(" | ");
+
         embedBuilder.setTitle(title);
         embedBuilder.setDescription(message + "\n\n"
                 + "**Additional Information:**");
@@ -19,6 +23,7 @@ public class LogManager {
             String value = arguments.get(key);
             if (value != null) {
                 embedBuilder.addField(key, value, false);
+                stringBuilder.append(key).append(": ").append(value).append(" // ");
             }
         }
 
@@ -27,15 +32,19 @@ public class LogManager {
         if (log != null) {
             log.sendMessageEmbeds(embedBuilder.build()).queue();
         }
+
+        LoggingFileHandler.log(title, stringBuilder.toString());
     }
 
     public static void log(final String title, final String message,
                            final HashMap<String, String> arguments, final Logger logger) {
         StringBuilder logMessage = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(title);
         embedBuilder.setDescription(message + "\n\n"
                 + "**Additional Information:**");
+        stringBuilder.append(message).append(" | ");
 
         logMessage.append(message);
 
@@ -43,7 +52,8 @@ public class LogManager {
             String value = arguments.get(key);
             if (value != null) {
                 embedBuilder.addField(key, value, false);
-                logMessage.append(" ").append(key).append(": ").append(value).append(" //");
+                logMessage.append(" ").append(key).append(": ").append(value).append(" // ");
+                stringBuilder.append(key).append(": ").append(value).append(" // ");
             }
         }
 
@@ -54,5 +64,6 @@ public class LogManager {
         }
 
         logger.info(logMessage.toString());
+        LoggingFileHandler.log(title, stringBuilder.toString());
     }
 }

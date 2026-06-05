@@ -73,6 +73,7 @@ public class NewsSender {
 
         if (newsChannel == null) {
             log.error("News Channel is null");
+            log.info("Channel ID: {}", Main.CONFIG.get("newsChannel"));
             return;
         }
 

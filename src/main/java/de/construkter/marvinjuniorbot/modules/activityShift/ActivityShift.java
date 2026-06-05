@@ -28,7 +28,6 @@ public class ActivityShift {
         String[] activities = {
             "EA SPORTS FC 26",
             "FORZA SGD", "Ave Dynamo",
-            "Verbandsstrafen abschaffen!",
             "Forza Dynamo",
             "Scheiß FCH",
             "Scheiß FCM",

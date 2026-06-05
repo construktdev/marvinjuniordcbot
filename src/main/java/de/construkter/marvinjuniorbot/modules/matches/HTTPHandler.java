@@ -18,7 +18,7 @@ public class HTTPHandler {
 
     public JsonNode getGame(final int spieltag) {
         String liga = "bl2";
-        int year = 2025;
+        int year = 2026;
 
         String url = "https://api.openligadb.de/getmatchdata/" + liga + "/" + year + "/" + spieltag;
 

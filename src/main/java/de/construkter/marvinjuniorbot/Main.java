@@ -2,6 +2,7 @@ package de.construkter.marvinjuniorbot;
 
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
+import de.construkter.marvinjuniorbot.moderation.antiSpam.AntiSpamManager;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.commands.WhoIsCommand;
@@ -32,10 +33,11 @@ public class Main extends ListenerAdapter {
 
     public static final Config CONFIG = new Config("config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-    public static final String VERSION = "1.2.2";
+    public static final String VERSION = "1.3";
     public static boolean todayWasGame = false;
     public static int currentSpieltag = 0;
     public static JDA jda;
+    public static final AntiSpamManager spamManager = new AntiSpamManager();
 
     public static void main(String[] args) {
         // Create a JDA Builder
@@ -60,6 +62,9 @@ public class Main extends ListenerAdapter {
         } catch (InterruptedException e) {
             LOGGER.error("Interrupted while waiting for jda to start: {}", e.getMessage());
         }
+
+        // Start the antiSpamManager
+        spamManager.startScheduler();
 
         // Update the SlashCommands for guilds only
         for (Guild guild : jda.getGuilds()) {

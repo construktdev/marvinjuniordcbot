@@ -3,6 +3,8 @@ package de.construkter.marvinjuniorbot;
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
 import de.construkter.marvinjuniorbot.moderation.antiSpam.AntiSpamManager;
+import de.construkter.marvinjuniorbot.moderation.antiSpam.SpamMessageListener;
+import de.construkter.marvinjuniorbot.moderation.antiUrls.UrlMessageListener;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.commands.WhoIsCommand;
@@ -47,7 +49,7 @@ public class Main extends ListenerAdapter {
 
         // Add the event listeners so the bot can reply to events such as Member joins
         builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(),
-                new PurgeCommand(), new WhoIsCommand());
+                new PurgeCommand(), new WhoIsCommand(), new SpamMessageListener(), new UrlMessageListener());
         builder.setActivity(Activity.playing("EA FC SPORTS 26"));
 
         // Build the JDA instance and launch the Bot

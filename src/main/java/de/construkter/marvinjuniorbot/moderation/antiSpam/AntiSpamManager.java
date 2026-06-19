@@ -1,8 +1,10 @@
 package de.construkter.marvinjuniorbot.moderation.antiSpam;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
@@ -23,6 +25,18 @@ public class AntiSpamManager {
         if (messagesByUser.get(event.getAuthor()) > 5) {
             if (event.getMember() != null) {
                 event.getMember().timeoutUntil(OffsetDateTime.now().plusMinutes(10)).reason("Spam").queue();
+
+                event.getMember().getUser().openPrivateChannel().queue(privateChannel -> {
+                    EmbedBuilder builder = new EmbedBuilder()
+                            .setTitle("\uD83E\uDD16 Automod")
+                            .setDescription("Du wurdest für 10 Minuten gemutet, da du zu viel gespammt hast. " +
+                                    "Bitte warte, bis der Mute vorbei ist, bevor du wieder Nachrichten sendest.")
+                            .setColor(0xFF0000)
+                            .setFooter("MarvinJunior Automod - punished at")
+                            .setTimestamp(Instant.now());
+
+                    privateChannel.sendMessageEmbeds(builder.build()).queue();
+                });
             }
         }
     }

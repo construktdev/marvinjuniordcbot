@@ -2,9 +2,11 @@ package de.construkter.marvinjuniorbot;
 
 import de.construkter.marvinjuniorbot.config.Config;
 import de.construkter.marvinjuniorbot.logging.LogManager;
+import de.construkter.marvinjuniorbot.moderation.antiScam.HoneypotManager;
 import de.construkter.marvinjuniorbot.moderation.antiSpam.AntiSpamManager;
 import de.construkter.marvinjuniorbot.moderation.antiSpam.SpamMessageListener;
 import de.construkter.marvinjuniorbot.moderation.antiUrls.UrlMessageListener;
+import de.construkter.marvinjuniorbot.moderation.utils.NukeCommand;
 import de.construkter.marvinjuniorbot.modules.activityShift.ActivityShift;
 import de.construkter.marvinjuniorbot.modules.commands.PurgeCommand;
 import de.construkter.marvinjuniorbot.modules.commands.WhoIsCommand;
@@ -18,6 +20,8 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -30,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class Main extends ListenerAdapter {
 
@@ -40,6 +45,7 @@ public class Main extends ListenerAdapter {
     public static int currentSpieltag = 0;
     public static JDA jda;
     public static final AntiSpamManager spamManager = new AntiSpamManager();
+    public static HashMap<User, List<Message>> messageCache = new HashMap<>();
 
     public static void main(String[] args) {
         // Create a JDA Builder
@@ -49,7 +55,8 @@ public class Main extends ListenerAdapter {
 
         // Add the event listeners so the bot can reply to events such as Member joins
         builder.addEventListeners(new JoinListener(), new Main(), new SendPanel(), new ButtonListener(),
-                new PurgeCommand(), new WhoIsCommand(), new SpamMessageListener(), new UrlMessageListener());
+                new PurgeCommand(), new WhoIsCommand(), new SpamMessageListener(), new UrlMessageListener(),
+                new NukeCommand());
         builder.setActivity(Activity.playing("EA FC SPORTS 26"));
 
         // Build the JDA instance and launch the Bot
@@ -79,7 +86,8 @@ public class Main extends ListenerAdapter {
                             .addOption(OptionType.INTEGER, "amount", "Anzahl der Messages (2-100)",
                                     true),
                     Commands.slash("whois", "[UTIL] Bekomme Informationen über einen Nutzer")
-                            .addOption(OptionType.USER, "user", "Der Nutzer mit den Informationen")
+                            .addOption(OptionType.USER, "user", "Der Nutzer mit den Informationen"),
+                    Commands.slash("nuke", "[ADMIN] Erstellt den aktuellen Kanal neu (löscht alle Nachrichten)")
             ).queue();
         }
 

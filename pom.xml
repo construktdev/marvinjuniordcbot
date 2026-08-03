@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.construkter</groupId>
-    <artifactId>MarvinJuniorBot</artifactId>
+    <artifactId>FootInfoBot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>de.construkter.marvinjuniorbot.Main</mainClass>
+        <mainClass>de.construkter.footinfobot.Main</mainClass>
     </properties>
 
     <dependencies>

@@ -1,4 +1,4 @@
-# TheMarvinJuniorBot
+# FootInfoBot
 
 > [!NOTE]
 > Dieses Projekt war früher als *MarvinjuniorBot* bekannt  <br>

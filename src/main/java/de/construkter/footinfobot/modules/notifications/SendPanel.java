@@ -45,7 +45,8 @@ public class SendPanel extends ListenerAdapter {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("\uD83D\uDCE2 Stream Benachrichtigungen ändern")
                 .setColor(Color.YELLOW)
-                .setDescription("Nutze den Button unten um zu ändern ob du Benachrichtigt wirst wenn etwas wichtiges passiert.")
+                .setDescription("Nutze den Button unten um zu ändern ob du Benachrichtigt werden möchstest, "
+                        + " wenn etwas wichtiges passiert.")
                 .setFooter("FootInfoBot", event.getGuild().getIconUrl());
 
         Button change = Button.primary("notifications", "\uD83D\uDCE2 Ändern");

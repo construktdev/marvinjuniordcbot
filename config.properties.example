@@ -1,0 +1,11 @@
+token=DISCORD_TOKEN // Your bot token from the Discord Developer Portal
+
+guild=Guild ID of the main guild this bot is used on
+mainLog=Channel ID of the main log channel
+
+welcomeChannel=Channel ID where the welcome messages will be sent
+verifiedRole=Role ID of the verified role
+memberRole=Role ID of the member role
+streamRole=Role ID of the streamer role
+gamedayChannel=Channel ID of the channel where gameday messages will be sent
+newsChannel=Channel ID of the channel where team news messages will be sent

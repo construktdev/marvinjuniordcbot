@@ -13,6 +13,7 @@ import de.construkter.footinfobot.modules.matches.GameSender;
 import de.construkter.footinfobot.modules.news.NewsSender;
 import de.construkter.footinfobot.modules.notifications.ButtonListener;
 import de.construkter.footinfobot.modules.notifications.SendPanel;
+import de.construkter.footinfobot.modules.versionCheck.VersionChecker;
 import de.construkter.footinfobot.modules.welcome.JoinListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -47,6 +48,19 @@ public class Main extends ListenerAdapter {
     public static HashMap<User, List<Message>> messageCache = new HashMap<>();
 
     public static void main(String[] args) {
+        // Check if the bot is up to date
+        boolean upToDate = VersionChecker.isUpToDate();
+        if (!upToDate) {
+            LOGGER.warn("The Bot is not up to date! Please update to the latest version."
+                    + "\nhttps://github.com/construktdev/FootInfoBot");
+        }
+
+        try {
+            Thread.sleep(5000); // Wait for 5 seconds to ensure the user can read the update message
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         // Create a JDA Builder
         JDABuilder builder = JDABuilder.createDefault(Token.get(), GatewayIntent.MESSAGE_CONTENT,
                 GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS);
